@@ -1,18 +1,41 @@
 <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Naija Brain</title>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f2b705"><title>Naija Brain</title>
 <style>
-:root{--yellow:#f2b705;--ink:#14110f;--green:#0f6b4b;--paper:#f3f5f2;--line:#d9ddd7}*{box-sizing:border-box}html,body{height:100%;margin:0}body{font-family:"Avenir Next","Segoe UI",system-ui,sans-serif;background:var(--paper);color:var(--ink);display:flex;flex-direction:column}header{background:var(--yellow);border-bottom:6px solid var(--ink);padding:14px 18px 10px}header h1{margin:0;font-size:1.55rem;font-weight:800}header p{margin:2px 0 0;font-size:.88rem}main{flex:1;overflow-y:auto;padding:16px 14px;max-width:720px;width:100%;margin:0 auto}.msg{max-width:86%;margin:0 0 10px;padding:10px 13px;line-height:1.45;white-space:pre-wrap}.bot{background:#fff;border:1px solid var(--line);border-left:4px solid var(--ink);border-radius:2px 12px 12px 12px}.me{background:var(--green);color:#fff;margin-left:auto;border-radius:12px 2px 12px 12px}.chips{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 14px}.chips button{font:inherit;font-size:.9rem;background:#fff;border:1.5px solid var(--ink);border-radius:999px;padding:7px 13px;cursor:pointer}form{display:flex;gap:8px;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid var(--line);max-width:720px;width:100%;margin:0 auto}input{flex:1;font:inherit;font-size:1rem;padding:11px 13px;border:1.5px solid var(--ink);border-radius:10px;min-width:0}form button{font:inherit;font-weight:700;background:var(--ink);color:var(--yellow);border:0;border-radius:10px;padding:0 18px;cursor:pointer}.err{color:#9b1c1c}
-</style></head><body>
-<header><h1>Naija Brain</h1><p>Built in Nigeria. Runs on its own engine, no outside AI.</p></header>
-<main id="log" aria-live="polite"><div class="msg bot">How far! Ask me about Nigeria in English or Pidgin.</div><div class="chips" id="chips"></div></main>
-<form id="f" autocomplete="off"><input id="q" placeholder="Type here, e.g. wetin be JAMB?" aria-label="Your message" maxlength="500"><button type="submit">Send</button></form>
+:root{--y:#f2b705;--ink:#14110f;--g:#0f6b4b;--paper:#f3f5f2;--line:#d9ddd7}*{box-sizing:border-box}html,body{height:100%;margin:0}body{font-family:system-ui,"Segoe UI",sans-serif;background:var(--paper);color:var(--ink);display:flex;flex-direction:column}header{background:var(--y);border-bottom:5px solid var(--ink);padding:15px 18px}h1{margin:0;font-size:1.6rem}header p{margin:2px 0 0;font-size:.9rem}main{flex:1;overflow-y:auto;padding:16px 14px;max-width:720px;width:100%;margin:0 auto}.msg{max-width:88%;margin:0 0 10px;padding:11px 14px;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere}.bot{background:white;border:1px solid var(--line);border-left:4px solid var(--ink);border-radius:2px 12px 12px 12px}.me{background:var(--g);color:white;margin-left:auto;border-radius:12px 2px 12px 12px}.chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 14px}.chips button{font:inherit;font-size:.9rem;background:white;border:1.5px solid var(--ink);border-radius:99px;padding:8px 12px}form{display:flex;gap:8px;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:white;border-top:1px solid var(--line);max-width:720px;width:100%;margin:0 auto}input{flex:1;min-width:0;font:inherit;padding:12px;border:1.5px solid var(--ink);border-radius:10px}form button{font:inherit;font-weight:700;background:var(--ink);color:var(--y);border:0;border-radius:10px;padding:0 18px}button{cursor:pointer}:focus-visible{outline:3px solid var(--g);outline-offset:2px}.note{font-size:.78rem;color:#62665f}
+</style></head><body><header><h1>Naija Brain 🇳🇬</h1><p>Naija knowledge, English and Pidgin.</p></header>
+<main id="log" aria-live="polite"><div class="msg bot">How far! Ask me about Nigeria, JAMB, WAEC, Pidgin, or try a quick calculation.</div><p class="note">Independent prototype · built-in knowledge · works without an API key</p><div class="chips" id="chips"></div></main>
+<form id="f" autocomplete="off"><input id="q" maxlength="500" placeholder="Wetin you wan know?" aria-label="Your message"><button>Send</button></form>
 <script>
-const log=document.getElementById("log"),q=document.getElementById("q"),chips=document.getElementById("chips");const session=(crypto.randomUUID?crypto.randomUUID():String(Math.random()).slice(2));
-["What is the capital of Nigeria?","Wetin be JAMB?","20% of 5000","Tell me a joke"].forEach(t=>{const b=document.createElement("button");b.type="button";b.textContent=t;b.onclick=()=>send(t);chips.appendChild(b)});
-function add(text,cls){const d=document.createElement("div");d.className="msg "+cls;d.textContent=text;log.appendChild(d);log.scrollTop=log.scrollHeight;return d}
-async function send(text){text=text.trim();if(!text)return;chips.remove();add(text,"me");q.value="";try{const r=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({session,message:text})});if(!r.ok)throw new Error(r.status);const data=await r.json();add(data.reply||data.error||"I couldn't answer that yet.","bot")}catch(e){add("I couldn't reach the Naija Brain engine. Please try again.","bot err")}}
-document.getElementById("f").addEventListener("submit",e=>{e.preventDefault();send(q.value)});
+const log=document.querySelector("#log"),q=document.querySelector("#q"),chips=document.querySelector("#chips");
+const kb=[
+[/capital of nigeria|capital nigeria|wetin be nigeria capital|nigeria capital/,"Abuja is Nigeria's capital. The seat of government moved there from Lagos on 12 December 1991."],
+[/what is nigeria|tell me about nigeria|about nigeria/,"Nigeria is a federal republic in West Africa and the most populous country on the continent. Its capital is Abuja, its largest city is Lagos, and its official language is English."],
+[/how many states|states.*nigeria|state nigeria get/,"Nigeria has 36 states plus the Federal Capital Territory (Abuja). They are grouped into six geopolitical zones."],
+[/jamb|utme/,"JAMB is the Joint Admissions and Matriculation Board. It runs the UTME, the entrance exam for universities, polytechnics and colleges of education in Nigeria, scored out of 400."],
+[/waec|neco/,"WAEC stands for West African Examinations Council and runs WASSCE. NECO stands for National Examinations Council and runs the SSCE. Both are secondary-school examinations."],
+[/currency|naira|nigeria money|kobo/,"Nigeria's currency is the naira (₦). One naira is 100 kobo."],
+[/independence|independent from britain/,"Nigeria became independent from Britain on 1 October 1960, and became a republic in 1963."],
+[/language.*nigeria|languages.*nigeria|official language/,"English is Nigeria's official language. Hausa, Yoruba and Igbo are the three biggest indigenous languages, and the country has over 500 languages in all."],
+[/pidgin|broken english|naija language/,"Nigerian Pidgin is an English-based creole spoken across the country as a common language between people of different ethnic groups."],
+[/emergency number|call.*police/,"Nigeria's national emergency number is 112."],
+[/jollof|party rice/,"Jollof rice is a hugely popular West African dish, and Nigerian party jollof is famous for its smoky flavour."],
+[/national motto|motto nigeria/,"Nigeria's national motto is “Unity and Faith, Peace and Progress”."],
+[/lagos/,"Lagos is Nigeria's largest city and commercial centre. It was the capital until 1991, when government moved to Abuja."]
+];
+function add(t,c){const d=document.createElement("div");d.className="msg "+c;d.textContent=t;log.append(d);log.scrollTop=log.scrollHeight}
+function reply(raw){const t=raw.toLowerCase().replace(/[’']/g,"").trim();
+if(/^(hi|hello|hey|how far|how you dey|wetin dey happen)\b/.test(t))return "How far! I be Naija Brain. Wetin you wan know?";
+if(/who are you|what is your name|who made you/.test(t))return "I be Naija Brain, a Nigerian-focused knowledge prototype. I can answer selected questions about Nigeria, understand some Pidgin, and do calculations.";
+if(/thank|tank you|no wahala/.test(t))return "No wahala! You dey welcome.";
+if(/\bjoke|make me laugh|funny\b/.test(t))return "Why did the generator go to school? To get more power.";
+if(/time now|what time|time in nigeria|wetin be the time/.test(t)){return "Nigeria time (WAT): "+new Intl.DateTimeFormat("en-NG",{timeZone:"Africa/Lagos",hour:"numeric",minute:"2-digit",weekday:"long",day:"numeric",month:"long"}).format(new Date())+"."}
+let p=t.match(/(\d+(?:\.\d+)?)\s*%\s*of\s*(\d+(?:\.\d+)?)/);if(p)return "That comes to "+(Number(p[1])*Number(p[2])/100).toLocaleString("en-NG")+".";
+let m=t.match(/^\s*(-?\d+(?:\.\d+)?)\s*([+*/-])\s*(-?\d+(?:\.\d+)?)\s*$/);if(m){let a=+m[1],b=+m[3];if(m[2]==="/"&&b===0)return "You can't divide by zero.";let v={"+":()=>a+b,"-":()=>a-b,"*":()=>a*b,"/":()=>a/b}[m[2]]();return "That comes to "+v.toLocaleString("en-NG")+"."}
+if(/wetin be jamb/.test(t))return kb[3][1];if(/wetin be waec/.test(t))return kb[4][1];if(/wetin be nigeria money/.test(t))return kb[5][1];
+for(const [re,a] of kb)if(re.test(t))return a;
+return "I never get that one yet, and I no wan guess. Try asking about Nigeria, JAMB, WAEC, Nigerian Pidgin, the naira, independence, or basic maths.";
+}
+["What is the capital of Nigeria?","Wetin be JAMB?","20% of 5000","Tell me a joke"].forEach(t=>{const b=document.createElement("button");b.type="button";b.textContent=t;b.onclick=()=>send(t);chips.append(b)});
+function send(t){t=t.trim();if(!t)return;chips.remove();add(t,"me");q.value="";setTimeout(()=>add(reply(t),"bot"),120)}
+document.querySelector("#f").onsubmit=e=>{e.preventDefault();send(q.value)};
 </script></body></html>
