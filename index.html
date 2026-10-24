@@ -1,41 +1,129 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f2b705"><title>Naija Brain</title>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0c1712">
+<meta name="description" content="Naija Brain — a Nigerian-focused assistant for questions, explanations, and everyday knowledge in English and Pidgin.">
+<title>Naija Brain — Your Naija-minded assistant</title>
 <style>
-:root{--y:#f2b705;--ink:#14110f;--g:#0f6b4b;--paper:#f3f5f2;--line:#d9ddd7}*{box-sizing:border-box}html,body{height:100%;margin:0}body{font-family:system-ui,"Segoe UI",sans-serif;background:var(--paper);color:var(--ink);display:flex;flex-direction:column}header{background:var(--y);border-bottom:5px solid var(--ink);padding:15px 18px}h1{margin:0;font-size:1.6rem}header p{margin:2px 0 0;font-size:.9rem}main{flex:1;overflow-y:auto;padding:16px 14px;max-width:720px;width:100%;margin:0 auto}.msg{max-width:88%;margin:0 0 10px;padding:11px 14px;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere}.bot{background:white;border:1px solid var(--line);border-left:4px solid var(--ink);border-radius:2px 12px 12px 12px}.me{background:var(--g);color:white;margin-left:auto;border-radius:12px 2px 12px 12px}.chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 14px}.chips button{font:inherit;font-size:.9rem;background:white;border:1.5px solid var(--ink);border-radius:99px;padding:8px 12px}form{display:flex;gap:8px;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:white;border-top:1px solid var(--line);max-width:720px;width:100%;margin:0 auto}input{flex:1;min-width:0;font:inherit;padding:12px;border:1.5px solid var(--ink);border-radius:10px}form button{font:inherit;font-weight:700;background:var(--ink);color:var(--y);border:0;border-radius:10px;padding:0 18px}button{cursor:pointer}:focus-visible{outline:3px solid var(--g);outline-offset:2px}.note{font-size:.78rem;color:#62665f}
-</style></head><body><header><h1>Naija Brain 🇳🇬</h1><p>Naija knowledge, English and Pidgin.</p></header>
-<main id="log" aria-live="polite"><div class="msg bot">How far! Ask me about Nigeria, JAMB, WAEC, Pidgin, or try a quick calculation.</div><p class="note">Independent prototype · built-in knowledge · works without an API key</p><div class="chips" id="chips"></div></main>
-<form id="f" autocomplete="off"><input id="q" maxlength="500" placeholder="Wetin you wan know?" aria-label="Your message"><button>Send</button></form>
+:root{color-scheme:dark;--bg:#0b120f;--panel:#111c17;--panel2:#17241d;--line:#28392f;--text:#f3f5ee;--muted:#a1afa5;--green:#8ce0a7;--green2:#1e6942;--gold:#f4c65b;--danger:#ffb4a9;--radius:20px}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}body{min-height:100dvh;background:radial-gradient(ellipse at 70% -15%,#1c4932 0,transparent 42%),var(--bg)}button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:2px solid var(--green);outline-offset:3px}a{color:var(--green)}.app{min-height:100dvh;display:grid;grid-template-columns:260px minmax(0,1fr);max-width:1600px;margin:auto}.sidebar{border-right:1px solid var(--line);padding:24px 17px;display:flex;flex-direction:column;gap:25px;background:rgba(7,14,10,.45)}.brand{display:flex;align-items:center;gap:11px;padding:3px 5px}.brand-mark{width:43px;height:43px;border-radius:14px;background:var(--green);color:#0a2114;display:grid;place-items:center;font-weight:950;font-size:21px;box-shadow:0 7px 28px #8ce0a720}.brand-name{font-size:17px;font-weight:800;letter-spacing:-.5px}.brand-sub{font-size:11px;color:var(--muted);margin-top:3px}.new-chat{border:1px solid #3a5544;background:#14231a;color:var(--text);border-radius:13px;padding:12px 14px;display:flex;align-items:center;justify-content:center;gap:9px;font-weight:650;transition:.2s}.new-chat:hover{background:#1a3022;border-color:#64846c}.side-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:#77877c;padding:0 8px}.quick-list{display:grid;gap:7px}.quick{display:flex;align-items:center;gap:10px;text-align:left;border:1px solid transparent;background:transparent;color:#c3cec5;padding:11px 10px;border-radius:11px;font-size:13px}.quick:hover{background:#15221a;border-color:var(--line);color:var(--text)}.quick-icon{width:25px;height:25px;display:grid;place-items:center;background:#213329;border-radius:8px;color:var(--green);font-size:13px}.side-bottom{margin-top:auto}.engine-card{padding:14px;border:1px solid var(--line);background:#101a14;border-radius:15px}.engine-top{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700}.status-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px #f4c65b17}.status-dot.online{background:var(--green);box-shadow:0 0 0 4px #8ce0a718}.status-dot.offline{background:var(--danger);box-shadow:0 0 0 4px #ffb4a918}.engine-card p{font-size:11px;line-height:1.55;color:var(--muted);margin:9px 0 0}.side-foot{font-size:10px;color:#68776d;padding:0 3px;line-height:1.6}.main{min-width:0;display:flex;flex-direction:column;min-height:100dvh}.topbar{height:75px;padding:0 34px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #24352b;background:#0b120fc9;backdrop-filter:blur(16px);position:sticky;top:0;z-index:4}.top-title{font-size:14px;font-weight:750}.top-caption{font-size:11px;color:var(--muted);margin-top:4px}.top-actions{display:flex;gap:8px;align-items:center}.pill{display:flex;align-items:center;gap:7px;border:1px solid var(--line);background:#111c17;color:#c1cec4;padding:8px 11px;border-radius:99px;font-size:11px}.pill .flag{font-size:14px}.mobile-brand,.menu-btn{display:none}.chat-wrap{width:min(900px,100%);margin:0 auto;padding:0 28px;flex:1;display:flex;flex-direction:column}.welcome{padding:64px 0 28px;animation:rise .45s ease both}.eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--green);font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase}.eyebrow:before{content:"";width:23px;height:1px;background:var(--green)}h1{font-size:clamp(32px,5vw,53px);letter-spacing:-2.5px;line-height:1.06;margin:17px 0 13px;font-weight:800;max-width:620px}.accent{color:var(--green)}.welcome-copy{max-width:520px;color:#aab8ad;font-size:14px;line-height:1.75;margin:0}.welcome-copy strong{color:#e7efe8;font-weight:650}.starter-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin-top:29px;max-width:660px}.starter{min-height:90px;text-align:left;border:1px solid #293b30;border-radius:15px;background:linear-gradient(145deg,#142119,#101a14);color:var(--text);padding:15px;display:flex;gap:12px;align-items:flex-start;transition:transform .18s,border-color .18s,background .18s}.starter:hover{transform:translateY(-2px);border-color:#52775c;background:#17271d}.starter-icon{width:34px;height:34px;flex:0 0 34px;border-radius:11px;background:#243b2c;color:var(--green);display:grid;place-items:center;font-size:16px}.starter-title{font-size:12px;font-weight:750;margin:1px 0 5px}.starter-desc{font-size:11px;line-height:1.5;color:var(--muted)}.chat-log{display:flex;flex-direction:column;gap:20px;padding:28px 0 22px}.message{display:flex;gap:12px;align-items:flex-start;animation:rise .22s ease both}.message.user{flex-direction:row-reverse}.avatar{width:31px;height:31px;flex:0 0 31px;border-radius:10px;background:#203a2a;color:var(--green);display:grid;place-items:center;font-size:12px;font-weight:900}.user .avatar{background:var(--green);color:#0c2114}.message-body{max-width:min(690px,calc(100% - 46px));min-width:0}.message-name{font-size:10px;font-weight:800;color:#95a69a;margin:2px 0 7px}.user .message-name{text-align:right}.bubble{font-size:14px;line-height:1.8;color:#e5ece5;overflow-wrap:anywhere}.user .bubble{display:inline-block;background:#1b3826;border:1px solid #31553b;border-radius:16px 5px 16px 16px;padding:11px 14px;line-height:1.65}.user .message-body{text-align:right}.answer-meta{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin-top:12px}.meta-tag{font-size:10px;color:#a8b9ac;background:#17251b;border:1px solid #2c4232;border-radius:7px;padding:5px 8px}.sources{display:grid;gap:7px;margin-top:12px}.source-link{display:flex;gap:9px;align-items:center;padding:10px 12px;border:1px solid #293d30;border-radius:10px;background:#111c16;text-decoration:none;color:#dce9dd;min-width:0}.source-link:hover{border-color:#6ba27b}.source-mark{width:26px;height:26px;flex:0 0 26px;border-radius:8px;background:#21372a;color:var(--green);display:grid;place-items:center;font-size:12px}.source-text{min-width:0}.source-title{font-size:11px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.source-url{font-size:10px;color:#84998a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:3px}.typing{display:flex;gap:5px;padding:8px 0}.typing span{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 1s infinite}.typing span:nth-child(2){animation-delay:.15s}.typing span:nth-child(3){animation-delay:.3s}.composer-zone{position:sticky;bottom:0;margin-top:auto;padding:18px 28px 17px;background:linear-gradient(0deg,var(--bg) 78%,transparent);z-index:3}.composer-inner{width:min(844px,100%);margin:auto}.composer{display:flex;align-items:flex-end;gap:10px;padding:9px 10px 9px 17px;border:1px solid #3b5142;border-radius:18px;background:#131e17;box-shadow:0 12px 50px #0003;transition:border-color .2s}.composer:focus-within{border-color:#6eaa7c}.composer textarea{resize:none;min-height:27px;max-height:140px;flex:1;min-width:0;border:0;outline:0;background:transparent;color:var(--text);font:inherit;font-size:14px;line-height:1.65;padding:3px 0}.composer textarea::placeholder{color:#7f9184}.send{width:39px;height:39px;flex:0 0 39px;border:0;border-radius:12px;background:var(--green);color:#092013;font-size:18px;font-weight:900;display:grid;place-items:center;transition:transform .15s,opacity .15s}.send:hover{transform:translateY(-1px);background:#a3edb7}.send:disabled{opacity:.45;cursor:not-allowed}.composer-help{display:flex;justify-content:space-between;gap:10px;font-size:10px;color:#718076;margin:10px 4px 0}.composer-help strong{color:#94a89a;font-weight:650}.toast{position:fixed;bottom:105px;left:50%;transform:translateX(-50%);z-index:10;background:#26392c;border:1px solid #4d6d54;color:#eff8ef;padding:11px 15px;border-radius:11px;font-size:12px;box-shadow:0 10px 30px #0005;max-width:90vw}.hidden{display:none!important}@keyframes rise{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}@keyframes pulse{0%,60%,100%{opacity:.35;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}@media(max-width:850px){.app{grid-template-columns:1fr}.sidebar{position:fixed;inset:0 auto 0 0;width:270px;z-index:20;transform:translateX(-105%);transition:transform .25s;background:#0d1711;box-shadow:15px 0 60px #0006}.sidebar.open{transform:translateX(0)}.menu-btn{display:grid;place-items:center;width:37px;height:37px;border:1px solid var(--line);border-radius:11px;background:#142018;color:var(--text);font-size:18px;margin-right:10px}.mobile-brand{display:flex;align-items:center;min-width:0}.topbar{padding:0 17px;height:67px}.top-left{display:flex;align-items:center}.top-title{font-size:13px}.top-caption{font-size:10px}.chat-wrap{padding:0 20px}.welcome{padding-top:43px}.composer-zone{padding:14px 16px calc(12px + env(safe-area-inset-bottom))}.pill{padding:7px 9px}.pill .pill-text{display:none}}@media(max-width:520px){h1{font-size:38px;letter-spacing:-1.8px}.welcome{padding-top:35px}.welcome-copy{font-size:13px}.starter-grid{gap:8px;margin-top:23px}.starter{padding:12px;min-height:100px;gap:9px}.starter-icon{width:29px;height:29px;flex-basis:29px;border-radius:9px}.starter-title{font-size:11px}.starter-desc{font-size:10px}.chat-wrap{padding:0 15px}.chat-log{gap:17px}.bubble{font-size:13px}.message{gap:9px}.avatar{width:29px;height:29px;flex-basis:29px}.message-body{max-width:calc(100% - 38px)}.composer-help{font-size:9px}.composer-help span:last-child{display:none}.topbar{padding:0 12px}.top-caption{max-width:165px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar" aria-label="Navigation">
+  <div class="brand"><div class="brand-mark">N</div><div><div class="brand-name">Naija Brain</div><div class="brand-sub">A little more Naija-minded.</div></div></div>
+  <button class="new-chat" id="newChat"><span aria-hidden="true">＋</span> Start a new chat</button>
+  <div><div class="side-label">Try asking</div><div class="quick-list">
+    <button class="quick" data-prompt="Explain something about Nigeria"><span class="quick-icon">✳</span>Explore Nigeria</button>
+    <button class="quick" data-prompt="Wetin be the meaning of artificial intelligence?"><span class="quick-icon">◈</span>Ask in Pidgin</button>
+    <button class="quick" data-prompt="Help me understand a difficult school topic"><span class="quick-icon">▤</span>Learn something</button>
+    <button class="quick" data-prompt="What is happening in the world today?"><span class="quick-icon">↗</span>Ask about today</button>
+  </div></div>
+  <div class="side-bottom"><div class="engine-card"><div class="engine-top"><span class="status-dot" id="statusDot"></span><span id="statusText">Checking connection</span></div><p id="statusDesc">Connecting to the Naija Brain response engine.</p></div><p class="side-foot">Made for curious minds, from Naija 🇳🇬<br>Responses can be wrong. Check important facts.</p></div>
+</aside>
+<section class="main">
+  <header class="topbar"><div class="top-left"><button class="menu-btn" id="menuBtn" aria-label="Open navigation">☰</button><div class="mobile-brand"><div><div class="top-title">Naija Brain</div><div class="top-caption">Your questions. English or Pidgin.</div></div></div></div><div class="top-actions"><div class="pill"><span class="flag">🇳🇬</span><span class="pill-text">Built for Naija</span></div><div class="pill"><span aria-hidden="true">◉</span><span class="pill-text">Response engine</span></div></div></header>
+  <main class="chat-wrap">
+    <section class="welcome" id="welcome">
+      <div class="eyebrow">Your Naija-minded assistant</div>
+      <h1>Wetin dey your<br><span class="accent">mind today?</span></h1>
+      <p class="welcome-copy">Ask questions, learn something new, or reason something out. Talk to Naija Brain in <strong>English or Pidgin</strong> — make we figure am out together.</p>
+      <div class="starter-grid" id="starterGrid">
+        <button class="starter" data-prompt="What is the capital of Nigeria?"><span class="starter-icon">⌖</span><span><div class="starter-title">Know your Naija</div><div class="starter-desc">Places, people, culture and history</div></span></button>
+        <button class="starter" data-prompt="Wetin be JAMB, and how e dey work?"><span class="starter-icon">▤</span><span><div class="starter-title">Learn in your language</div><div class="starter-desc">Break down a topic in simple words</div></span></button>
+        <button class="starter" data-prompt="Can you calculate 18% of 2500?"><span class="starter-icon">＋</span><span><div class="starter-title">Work something out</div><div class="starter-desc">Maths, steps and explanations</div></span></button>
+        <button class="starter" data-prompt="What can you help me with?"><span class="starter-icon">✳</span><span><div class="starter-title">See what it can do</div><div class="starter-desc">Find out what Naija Brain knows</div></span></button>
+      </div>
+    </section>
+    <section class="chat-log hidden" id="chatLog" aria-live="polite" aria-label="Conversation"></section>
+  </main>
+  <footer class="composer-zone"><div class="composer-inner"><form class="composer" id="chatForm"><textarea id="messageInput" rows="1" maxlength="2000" placeholder="Ask anything… or type your question for Pidgin" aria-label="Your message"></textarea><button class="send" id="sendBtn" type="submit" aria-label="Send message">↑</button></form><div class="composer-help"><span>↵ <strong>Enter to send</strong> · Shift + Enter for a new line</span><span>Naija Brain can make mistakes — verify important info.</span></div></div></footer>
+</section>
+</div>
+<div id="toast" class="toast hidden" role="status"></div>
 <script>
-const log=document.querySelector("#log"),q=document.querySelector("#q"),chips=document.querySelector("#chips");
-const kb=[
-[/capital of nigeria|capital nigeria|wetin be nigeria capital|nigeria capital/,"Abuja is Nigeria's capital. The seat of government moved there from Lagos on 12 December 1991."],
-[/what is nigeria|tell me about nigeria|about nigeria/,"Nigeria is a federal republic in West Africa and the most populous country on the continent. Its capital is Abuja, its largest city is Lagos, and its official language is English."],
-[/how many states|states.*nigeria|state nigeria get/,"Nigeria has 36 states plus the Federal Capital Territory (Abuja). They are grouped into six geopolitical zones."],
-[/jamb|utme/,"JAMB is the Joint Admissions and Matriculation Board. It runs the UTME, the entrance exam for universities, polytechnics and colleges of education in Nigeria, scored out of 400."],
-[/waec|neco/,"WAEC stands for West African Examinations Council and runs WASSCE. NECO stands for National Examinations Council and runs the SSCE. Both are secondary-school examinations."],
-[/currency|naira|nigeria money|kobo/,"Nigeria's currency is the naira (₦). One naira is 100 kobo."],
-[/independence|independent from britain/,"Nigeria became independent from Britain on 1 October 1960, and became a republic in 1963."],
-[/language.*nigeria|languages.*nigeria|official language/,"English is Nigeria's official language. Hausa, Yoruba and Igbo are the three biggest indigenous languages, and the country has over 500 languages in all."],
-[/pidgin|broken english|naija language/,"Nigerian Pidgin is an English-based creole spoken across the country as a common language between people of different ethnic groups."],
-[/emergency number|call.*police/,"Nigeria's national emergency number is 112."],
-[/jollof|party rice/,"Jollof rice is a hugely popular West African dish, and Nigerian party jollof is famous for its smoky flavour."],
-[/national motto|motto nigeria/,"Nigeria's national motto is “Unity and Faith, Peace and Progress”."],
-[/lagos/,"Lagos is Nigeria's largest city and commercial centre. It was the capital until 1991, when government moved to Abuja."]
-];
-function add(t,c){const d=document.createElement("div");d.className="msg "+c;d.textContent=t;log.append(d);log.scrollTop=log.scrollHeight}
-function reply(raw){const t=raw.toLowerCase().replace(/[’']/g,"").trim();
-if(/^(hi|hello|hey|how far|how you dey|wetin dey happen)\b/.test(t))return "How far! I be Naija Brain. Wetin you wan know?";
-if(/who are you|what is your name|who made you/.test(t))return "I be Naija Brain, a Nigerian-focused knowledge prototype. I can answer selected questions about Nigeria, understand some Pidgin, and do calculations.";
-if(/thank|tank you|no wahala/.test(t))return "No wahala! You dey welcome.";
-if(/\bjoke|make me laugh|funny\b/.test(t))return "Why did the generator go to school? To get more power.";
-if(/time now|what time|time in nigeria|wetin be the time/.test(t)){return "Nigeria time (WAT): "+new Intl.DateTimeFormat("en-NG",{timeZone:"Africa/Lagos",hour:"numeric",minute:"2-digit",weekday:"long",day:"numeric",month:"long"}).format(new Date())+"."}
-let p=t.match(/(\d+(?:\.\d+)?)\s*%\s*of\s*(\d+(?:\.\d+)?)/);if(p)return "That comes to "+(Number(p[1])*Number(p[2])/100).toLocaleString("en-NG")+".";
-let m=t.match(/^\s*(-?\d+(?:\.\d+)?)\s*([+*/-])\s*(-?\d+(?:\.\d+)?)\s*$/);if(m){let a=+m[1],b=+m[3];if(m[2]==="/"&&b===0)return "You can't divide by zero.";let v={"+":()=>a+b,"-":()=>a-b,"*":()=>a*b,"/":()=>a/b}[m[2]]();return "That comes to "+v.toLocaleString("en-NG")+"."}
-if(/wetin be jamb/.test(t))return kb[3][1];if(/wetin be waec/.test(t))return kb[4][1];if(/wetin be nigeria money/.test(t))return kb[5][1];
-for(const [re,a] of kb)if(re.test(t))return a;
-return "I never get that one yet, and I no wan guess. Try asking about Nigeria, JAMB, WAEC, Nigerian Pidgin, the naira, independence, or basic maths.";
+(function(){
+const $=s=>document.querySelector(s), input=$("#messageInput"), log=$("#chatLog"), welcome=$("#welcome"), starterGrid=$("#starterGrid"), sendBtn=$("#sendBtn"), form=$("#chatForm"), sidebar=$("#sidebar");
+let busy=false,toastTimer;
+const sessionKey="naija-brain-session";
+let session=localStorage.getItem(sessionKey);
+if(!session){session="nb-"+Math.random().toString(36).slice(2)+Date.now().toString(36);localStorage.setItem(sessionKey,session)}
+function toast(msg){const el=$("#toast");el.textContent=msg;el.classList.remove("hidden");clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.add("hidden"),3000)}
+function scrollBottom(){window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"})}
+function textNode(tag,cls,text){const el=document.createElement(tag);if(cls)el.className=cls;el.textContent=text;return el}
+function addMessage(role,text,data){
+ const row=textNode("article","message "+(role==="user"?"user":"assistant"));
+ const avatar=textNode("div","avatar",role==="user"?"Y":"N");avatar.setAttribute("aria-hidden","true");
+ const body=textNode("div","message-body","");
+ body.append(textNode("div","message-name",role==="user"?"YOU":"NAIJA BRAIN"));
+ const bubble=textNode("div","bubble",text);body.append(bubble);
+ if(role!=="user"&&data){
+   const meta=textNode("div","answer-meta","");
+   if(data.answered_by)meta.append(textNode("span","meta-tag","Source: "+String(data.answered_by)));
+   if(typeof data.confidence==="number")meta.append(textNode("span","meta-tag",Math.round(data.confidence*100)+"% confidence"));
+   if(data.latency_ms)meta.append(textNode("span","meta-tag",data.latency_ms+" ms"));
+   if(meta.childNodes.length)body.append(meta);
+   if(Array.isArray(data.sources)&&data.sources.length){
+     const sources=textNode("div","sources","");
+     data.sources.slice(0,5).forEach(src=>{
+       if(!src||!src.url)return;
+       try{const url=new URL(src.url);if(!["http:","https:"].includes(url.protocol))return;
+         const a=textNode("a","source-link","");a.href=url.href;a.target="_blank";a.rel="noopener noreferrer";
+         a.append(textNode("span","source-mark","↗"));
+         const wrap=textNode("span","source-text","");wrap.append(textNode("div","source-title",src.title||url.hostname),textNode("div","source-url",url.hostname));a.append(wrap);sources.append(a);
+       }catch(e){}
+     });
+     if(sources.childNodes.length){body.append(textNode("div","message-name","SOURCES"));body.append(sources)}
+   }
+ }
+ row.append(avatar,body);log.append(row);scrollBottom();return row;
 }
-["What is the capital of Nigeria?","Wetin be JAMB?","20% of 5000","Tell me a joke"].forEach(t=>{const b=document.createElement("button");b.type="button";b.textContent=t;b.onclick=()=>send(t);chips.append(b)});
-function send(t){t=t.trim();if(!t)return;chips.remove();add(t,"me");q.value="";setTimeout(()=>add(reply(t),"bot"),120)}
-document.querySelector("#f").onsubmit=e=>{e.preventDefault();send(q.value)};
-</script></body></html>
+function showTyping(){
+ const row=textNode("article","message assistant");row.id="typingIndicator";
+ row.append(textNode("div","avatar","N"));
+ const body=textNode("div","message-body","");body.append(textNode("div","message-name","NAIJA BRAIN"));
+ const dots=textNode("div","typing","");dots.setAttribute("aria-label","Naija Brain is thinking");dots.append(document.createElement("span"),document.createElement("span"),document.createElement("span"));body.append(dots);row.append(body);log.append(row);scrollBottom();return row;
+}
+function resetChat(){if(busy)return;log.replaceChildren();log.classList.add("hidden");welcome.classList.remove("hidden");starterGrid.classList.remove("hidden");input.value="";input.style.height="auto";input.focus();sidebar.classList.remove("open")}
+async function send(raw){
+ const message=String(raw||"").trim();if(!message||busy)return;
+ busy=true;sendBtn.disabled=true;input.disabled=true;welcome.classList.add("hidden");starterGrid.classList.add("hidden");log.classList.remove("hidden");
+ addMessage("user",message);input.value="";input.style.height="auto";
+ const typing=showTyping();
+ try{
+   const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),25000);
+   let response;
+   try{response=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify({session:session,message:message}),signal:controller.signal})}finally{clearTimeout(timer)}
+   const payload=await response.json().catch(()=>({}));
+   if(!response.ok)throw new Error(payload.error||"The response service returned an error ("+response.status+").");
+   const answer=payload.reply||payload.answer||payload.message;
+   if(typeof answer!=="string"||!answer.trim())throw new Error("The service replied, but did not include an answer.");
+   typing.remove();addMessage("assistant",answer,payload);
+ }catch(err){
+   typing.remove();
+   const message=err.name==="AbortError"?"That took too long. Please try again.":(err instanceof TypeError?"I couldn't reach the response service. Check your connection and try again.":err.message||"Something went wrong.");
+   addMessage("assistant",message);toast("Message was not answered");
+ }finally{busy=false;sendBtn.disabled=false;input.disabled=false;input.focus();scrollBottom()}
+}
+form.addEventListener("submit",e=>{e.preventDefault();send(input.value)});
+input.addEventListener("input",()=>{input.style.height="auto";input.style.height=Math.min(input.scrollHeight,140)+"px"});
+input.addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();send(input.value)}});
+document.querySelectorAll("[data-prompt]").forEach(btn=>btn.addEventListener("click",()=>{sidebar.classList.remove("open");send(btn.dataset.prompt)}));
+$("#newChat").addEventListener("click",resetChat);
+$("#menuBtn").addEventListener("click",()=>sidebar.classList.toggle("open"));
+document.addEventListener("click",e=>{if(window.innerWidth<=850&&sidebar.classList.contains("open")&&!sidebar.contains(e.target)&&!$("#menuBtn").contains(e.target))sidebar.classList.remove("open")});
+async function checkStatus(){
+ const dot=$("#statusDot"),title=$("#statusText"),desc=$("#statusDesc");
+ try{const res=await fetch("/api/chat",{headers:{"Accept":"application/json"},cache:"no-store"});const data=await res.json();
+   if(res.ok&&data&&data.status==="ok"){dot.classList.add("online");title.textContent="Service connected";desc.textContent="The chat service is responding. Ask a question to test it."}
+   else{dot.classList.add("offline");title.textContent="Service needs attention";desc.textContent="The chat endpoint responded unexpectedly. Chat may not work yet."}
+ }catch(e){dot.classList.add("offline");title.textContent="Service unreachable";desc.textContent="Could not reach the chat endpoint. Check the deployment."}
+}
+checkStatus();
+})();
+</script>
+</body>
+</html>
